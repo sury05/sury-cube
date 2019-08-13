@@ -35,3 +35,5 @@
           "jest": "jest"
       ```
       https://jest-bot.github.io/jest/docs/getting-started.html
+      
+      ** webstorm 설정 - Preferences > Javascript > Library > Jest
