@@ -57,10 +57,10 @@
       },
       computed: {
         currentCapacity() {
-          return `${this.joinedNumber} / ${this.maxNumber}`;
+          return `${this.joinedNumber} / ${this.joinedNumber}`;
         },
         isPlaying() {
-          return this.state === 'playing';
+          return this.state === 'playing' || this.state === 'fulled';
         }
       },
     }

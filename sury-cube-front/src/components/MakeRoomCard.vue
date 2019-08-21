@@ -51,7 +51,6 @@
       source: String,
     },
     data: () => ({
-      drawer: null,
       items: [2,3,4,5],
       maxNumberOfPerson: null,
       roomName: '',
@@ -64,7 +63,7 @@
       makeRoom() {
         this.$emit('make-room', {
           name: this.roomName,
-          maxNumber: this.maxNumberOfPerson,
+          joinedNumber: this.maxNumberOfPerson,
           players: [this.playerName],
         });
       },

@@ -9,7 +9,7 @@
                    :name="room.name"
                    :state="room.state"
                    :players="room.players"
-                   :max-number="room.maxNumber"
+                   :max-number="room.joinedNumber"
                    :joined-number="room.joinedNumber"
         />
       </div>
@@ -66,6 +66,8 @@ export default {
         hostPlayer: newRoom.players[0],
       });
       this.toggleShowMakeRoom();
+
+      this.$router.push(`/room/${newRoom.name}`);
     },
   },
 };
