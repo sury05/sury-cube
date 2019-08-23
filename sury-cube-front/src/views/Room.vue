@@ -11,28 +11,28 @@
 </template>
 
 <script>
-  import ReadyButton from '../components/buttons/ReadyButton.vue';
+import ReadyButton from '../components/buttons/ReadyButton.vue';
 
-  export default {
-    components: {
-      ReadyButton,
+export default {
+  components: {
+    ReadyButton,
+  },
+  props: {
+    id: {
+      type: String,
+      required: true,
     },
-    props: {
-      id: {
-        type: String,
-        required: true,
+  },
+  data() {
+    return {
+      room: {
+        name: 'My Room',
+        maxNumber: 4,
+        joinedNumber: 4,
       },
-    },
-    data() {
-      return {
-        room: {
-          name: 'My Room',
-          maxNumber: 4,
-          joinedNumber: 4,
-        },
-      }
-    },
-  }
+    };
+  },
+};
 </script>
 
 <style scoped>

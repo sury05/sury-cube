@@ -24,35 +24,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import MakeRoomCard from '../components/MakeRoomCard.vue';
 import RoomCard from '../components/RoomCard.vue';
+import { getRooms } from '../services/room';
 
 export default {
   components: {
     MakeRoomCard,
     RoomCard,
   },
+  async mounted() {
+    const rooms = await getRooms();
+    this.$store.commit('setRooms', rooms);
+  },
   data() {
     return {
       isShowMakeRoom: false,
-      rooms: [
-        {
-          name: 'gogo',
-          state: 'playing',
-          players: ['bts','twice'],
-          maxNumber: 2,
-          joinedNumber: 2,
-          hostPlayer: 'bts',
-        },
-        {
-          name: 'temp',
-          state: 'waiting',
-          players: ['bts','twice'],
-          maxNumber: 4,
-          joinedNumber: 2,
-          hostPlayer: 'twice',
-        }],
-    }
+    };
   },
   methods: {
     toggleShowMakeRoom() {
@@ -65,10 +54,17 @@ export default {
         joinedNumber: 1,
         hostPlayer: newRoom.players[0],
       });
+
+      this.$store.commit('addRoom', newRoom);
       this.toggleShowMakeRoom();
 
       this.$router.push(`/room/${newRoom.name}`);
     },
+  },
+  computed: {
+    ...mapState([
+      'rooms',
+    ]),
   },
 };
 </script>

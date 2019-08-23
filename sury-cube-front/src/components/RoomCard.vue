@@ -32,38 +32,38 @@
 </template>
 
 <script>
-    export default {
-      props: {
-        name: {
-          type: String,
-          default: 'Empty',
-        },
-        state: {
-          type: String,
-          default: 'waiting',
-        },
-        players: {
-          type: Array,
-          required: true,
-        },
-        maxNumber: {
-          type: Number,
-          required: true,
-        },
-        joinedNumber: {
-          type: Number,
-          required: true,
-        }
-      },
-      computed: {
-        currentCapacity() {
-          return `${this.joinedNumber} / ${this.joinedNumber}`;
-        },
-        isPlaying() {
-          return this.state === 'playing' || this.state === 'fulled';
-        }
-      },
-    }
+export default {
+  props: {
+    name: {
+      type: String,
+      default: 'Empty',
+    },
+    state: {
+      type: String,
+      default: 'waiting',
+    },
+    players: {
+      type: Array,
+      required: true,
+    },
+    maxNumber: {
+      type: Number,
+      required: true,
+    },
+    joinedNumber: {
+      type: Number,
+      required: true,
+    },
+  },
+  computed: {
+    currentCapacity() {
+      return `${this.joinedNumber} / ${this.joinedNumber}`;
+    },
+    isPlaying() {
+      return this.state === 'playing' || this.state === 'fulled';
+    },
+  },
+};
 </script>
 
 <style scoped>

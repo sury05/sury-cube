@@ -46,27 +46,27 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      source: String,
+export default {
+  props: {
+    source: String,
+  },
+  data: () => ({
+    items: [2, 3, 4, 5],
+    maxNumberOfPerson: null,
+    roomName: '',
+    playerName: '',
+  }),
+  methods: {
+    clickClose() {
+      this.$emit('click-close');
     },
-    data: () => ({
-      items: [2,3,4,5],
-      maxNumberOfPerson: null,
-      roomName: '',
-      playerName: '',
-    }),
-    methods: {
-      clickClose() {
-        this.$emit('click-close');
-      },
-      makeRoom() {
-        this.$emit('make-room', {
-          name: this.roomName,
-          joinedNumber: this.maxNumberOfPerson,
-          players: [this.playerName],
-        });
-      },
+    makeRoom() {
+      this.$emit('make-room', {
+        name: this.roomName,
+        joinedNumber: this.maxNumberOfPerson,
+        players: [this.playerName],
+      });
     },
-  }
+  },
+};
 </script>
