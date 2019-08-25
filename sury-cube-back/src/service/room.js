@@ -1,27 +1,29 @@
 import db from '../db';
-import shortid from 'shortid';
 
 function getRooms() {
-  return db.get('room').value();
+  return db.get('rooms').value();
 }
 
 function getRoom(id) {
-  return db.get('room').find({ id }).value();
+  return db.get('rooms').find({ id }).value();
 }
 
 function createRoom(room) {
-  const id = shortid.generate();
-
-  db.get('room').push({
-    ...room,
-    id,
+  db.get('rooms').push({
+    ...room
   }).write();
+}
 
-  return id;
+function updateRoom(id, room) {
+  db.get('rooms')
+      .find({id})
+      .assign(room)
+      .write();
 }
 
 export {
   getRooms,
   getRoom,
   createRoom,
+  updateRoom,
 }
