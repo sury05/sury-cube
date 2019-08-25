@@ -5,11 +5,13 @@
       </v-btn>
       <div class="room-card-wrapper">
         <room-card v-for="room in rooms"
+                   :key="room.id"
                    class="room-card-wrapper--item"
+                   :id="room.id"
                    :name="room.name"
                    :state="room.state"
                    :players="room.players"
-                   :max-number="room.joinedNumber"
+                   :max-number="room.maxNumber"
                    :joined-number="room.joinedNumber"
         />
       </div>
@@ -25,8 +27,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import MakeRoomCard from '../components/MakeRoomCard.vue';
-import RoomCard from '../components/RoomCard.vue';
+
+import MakeRoomCard from '../components/cards/MakeRoomCard.vue';
+import RoomCard from '../components/cards/RoomCard.vue';
 import { getRooms } from '../services/room';
 
 export default {
@@ -48,17 +51,10 @@ export default {
       this.isShowMakeRoom = !this.isShowMakeRoom;
     },
     makeRoom(newRoom) {
-      this.rooms.push({
-        ...newRoom,
-        state: 'waiting',
-        joinedNumber: 1,
-        hostPlayer: newRoom.players[0],
-      });
-
-      this.$store.commit('addRoom', newRoom);
+      this.$store.dispatch('addRoomAndSendMessage', newRoom);
       this.toggleShowMakeRoom();
 
-      this.$router.push(`/room/${newRoom.name}`);
+      this.$router.push(`/room/${newRoom.id}`);
     },
   },
   computed: {
@@ -83,7 +79,10 @@ export default {
   }
 
   .make-room-card-wrapper {
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -101,7 +100,6 @@ export default {
 
     &--item {
       position: absolute;
-      z-index: 10;
       width: 400px;
     }
   }

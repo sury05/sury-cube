@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import shortid from 'shortid';
+
 export default {
   props: {
     source: String,
@@ -62,9 +64,12 @@ export default {
     },
     makeRoom() {
       this.$emit('make-room', {
+        id: shortid.generate(),
         name: this.roomName,
-        joinedNumber: this.maxNumberOfPerson,
+        maxNumber: this.maxNumberOfPerson,
+        joinedNumber: 1,
         players: [this.playerName],
+        state: 'waiting',
       });
     },
   },
