@@ -1,10 +1,12 @@
 <template>
-  <v-btn class="mx-2" style="width:250px;height: 250px;" fab dark color="primary" @click="toggleButton">
+  <v-btn class="mx-2 ready-button" fab dark color="primary" @click="toggleButton">
     <div style="display: flex; flex-direction: column;">
       <div style="font-size: 30px;" class="pb-3">{{ buttonText }}</div>
       <div>
-        <v-icon medium :dense="false" v-for="n in joinedNumber">
-          {{ readyNumber < n ? 'mdi-account-remove-outline' : 'mdi-account-check' }}
+        <v-icon :dense="false" medium
+                v-for="n in joinedNumber"
+                :key="n">
+          {{ (readyNumber < n) ? 'mdi-account-remove-outline' : 'mdi-account-check' }}
         </v-icon>
       </div>
     </div>
@@ -12,33 +14,43 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      joinedNumber: {
-        type: Number,
-        required: true,
-      },
+export default {
+  props: {
+    joinedNumber: {
+      type: Number,
+      default: 0,
     },
-    data() {
-      return {
-        readyNumber: 0,
-        buttonText: 'PLAY',
+    readyNumber: {
+      type: Number,
+      default: 0,
+    },
+  },
+  data() {
+    return {
+      buttonText: 'READY!',
+      state: '',
+    };
+  },
+  methods: {
+    toggleButton() {
+      let resultNumber = this.readyNumber;
+      if (this.buttonText === 'READY!') {
+        resultNumber += 1;
+        this.buttonText = 'WAITING...';
+      } else {
+        resultNumber -= 1;
+        this.buttonText = 'READY!';
       }
+      const state = this.joinedNumber <= resultNumber ? 'playing' : 'waiting';
+      this.$emit('click-ready', resultNumber, state);
     },
-    methods: {
-      toggleButton() {
-        if(this.buttonText === 'PLAY') {
-          this.readyNumber++;
-          this.buttonText = 'WAITING...';
-        } else {
-          this.readyNumber--;
-          this.buttonText = 'PLAY';
-        }
-      }
-    },
-  }
+  },
+};
 </script>
 
 <style scoped>
-
+  .ready-button {
+    width:250px;
+    height: 250px;
+  }
 </style>

@@ -30,16 +30,11 @@ import { mapState } from 'vuex';
 
 import MakeRoomCard from '../components/cards/MakeRoomCard.vue';
 import RoomCard from '../components/cards/RoomCard.vue';
-import { getRooms } from '../services/room';
 
 export default {
   components: {
     MakeRoomCard,
     RoomCard,
-  },
-  async mounted() {
-    const rooms = await getRooms();
-    this.$store.commit('setRooms', rooms);
   },
   data() {
     return {

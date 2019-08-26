@@ -1,4 +1,5 @@
 import db from '../db';
+import {getShuffledCard} from "./card";
 
 function getRooms() {
   return db.get('rooms').value();
@@ -10,6 +11,9 @@ function getRoom(id) {
 
 function createRoom(room) {
   db.get('rooms').push({
+    cards: {
+      left: getShuffledCard()
+    },
     ...room
   }).write();
 }

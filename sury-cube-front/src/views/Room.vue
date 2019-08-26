@@ -1,20 +1,22 @@
 <template>
   <div>
-    <v-chip class="ma-5" color="primary" large>
-      <v-icon left class="ml-5">mdi-gamepad-square</v-icon>
-      <span class="mr-5">{{ room.name }}</span>
-    </v-chip>
-    <div class="mt-12 ml-12">
-      <ready-button :joined-number="room.joinedNumber"></ready-button>
+    <room-information-card class="room-information-card" :room="room"></room-information-card>
+    <div class="ready-button-wrapper" v-if="room.state === 'waiting'">
+      <ready-button :joined-number="room.joinedNumber"
+                    :ready-number="room.readyNumber"
+                    @click-ready="clickReadyButton">
+      </ready-button>
     </div>
   </div>
 </template>
 
 <script>
 import ReadyButton from '../components/buttons/ReadyButton.vue';
+import RoomInformationCard from '../components/cards/RoomInformationCard.vue';
 
 export default {
   components: {
+    RoomInformationCard,
     ReadyButton,
   },
   props: {
@@ -23,17 +25,31 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      room: {
-        name: 'My Room',
-        maxNumber: 4,
-        joinedNumber: 4,
-      },
-    };
+  computed: {
+    room() {
+      return this.$store.state.rooms.filter(({ id }) => id === this.id)[0] || {};
+    },
+  },
+  methods: {
+    clickReadyButton(readyNumber, state) {
+      this.$store.dispatch('readyAndSendMessage', { id: this.id, readyNumber, state });
+    },
   },
 };
 </script>
 
 <style scoped>
+  .room-information-card {
+    position: fixed;
+    top: 0;
+    width: 400px;
+    z-index: 10;
+  }
+  .ready-button-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>

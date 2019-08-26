@@ -5,7 +5,8 @@ import socket from 'socket.io';
 import db from './src/db';
 import routers from './src/routes';
 import logger from 'morgan';
-import {createRoom, updateRoom} from "./src/service/room";
+import {createRoom, getRoom, updateRoom} from "./src/service/room";
+import {giveCardToPlayers} from "./src/service/card";
 
 const app = express();
 const server = http.createServer(app);
@@ -29,7 +30,15 @@ io.on('connection', socket => {
 
     socket.on('update-room', data => {
         const { id, room } = data;
-        updateRoom(id, room);
+
+        const { state: originalState } = getRoom(id);
+
+        const resultRoom = { ...room };
+        if(originalState === 'waiting' && room.state === 'playing' ) {
+            resultRoom.cards = giveCardToPlayers(id);
+        }
+
+        updateRoom(id, resultRoom);
         socket.broadcast.emit('room-updated', data);
     });
 });

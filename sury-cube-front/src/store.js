@@ -38,5 +38,13 @@ export default new Vuex.Store({
       commit('updateRoom', { id, room: updatedRoom });
       sendUpdateRoom(id, updatedRoom);
     },
+    readyAndSendMessage({ state, commit }, { id, readyNumber, state: roomState }) {
+      const updatedRoom = { ...state.rooms.filter(room => room.id === id)[0] };
+      updatedRoom.readyNumber = readyNumber;
+      updatedRoom.state = roomState;
+
+      commit('updateRoom', { id, room: updatedRoom });
+      sendUpdateRoom(id, updatedRoom);
+    },
   },
 });
