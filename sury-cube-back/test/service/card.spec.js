@@ -1,5 +1,5 @@
 import { makeCard } from '../../src/service/card';
-import Card from "../../src/vo/card";
+import Card from '../../src/vo/Card';
 
 describe('makeCard', () => {
   it('should ', () => {

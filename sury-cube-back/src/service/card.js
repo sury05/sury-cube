@@ -1,5 +1,5 @@
-import Card from '../vo/card'
-import {getRoom} from "./room";
+import Card from '../vo/Card';
+import {getRoom} from './room';
 
 const AMOUNT_OF_EACH_COLOR_CARD = 13;
 
@@ -8,19 +8,23 @@ export function getShuffledCard() {
 }
 
 export function giveCardToPlayers(id) {
-  const { cards, players } = getRoom(id);
+  const { players } = getRoom(id);
 
-  const resultCard = { 'left': cards.left };
+  const cards = getShuffledCard();
+
+  const resultCard = {};
 
   players.forEach(name => {
     const givenCards = [];
 
     for(let i=0; i<13; i++) {
-      givenCards.push(cards.left.pop());
+      givenCards.push(cards.pop());
     }
 
     resultCard[name] = givenCards;
   });
+
+  resultCard.initial = cards;
 
   return resultCard;
 }
