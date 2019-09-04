@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "nodemon --exec babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \\\"Error: no tests specified\\\" && exit 1",
     "jest": "jest"
   },
   "nodemonConfig": {
@@ -20,6 +20,8 @@
     "express": "^4.17.1",
     "lowdb": "^1.0.0",
     "morgan": "^1.9.1",
+    "path": "^0.12.7",
+    "process": "latest",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {

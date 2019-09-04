@@ -15,8 +15,8 @@
         prepend-icon="mdi-account-plus"
       ></v-text-field>
       <v-select
-        v-model="players"
-        :items="players"
+        v-model="playerNames"
+        :items="playerNames"
         attach
         chips
         label="Players"
@@ -41,6 +41,7 @@
 
 <script>
 import JoinRoomCard from './JoinRoomCard.vue';
+import { sendJoinRoom } from '../../socket/send-message';
 
 export default {
   components: { JoinRoomCard },
@@ -85,6 +86,9 @@ export default {
     isFulled() {
       return this.joinedNumber >= this.maxNumber;
     },
+    playerNames() {
+      return this.players.map(player => player.name);
+    },
   },
   methods: {
     clickJoin() {
@@ -95,7 +99,7 @@ export default {
     },
     joinRoom(playerName) {
       if (this.joinedNumber < this.maxNumber) {
-        this.$store.dispatch('joinRoomAndSendMessage', { id: this.id, playerName });
+        sendJoinRoom({ id: this.id, playerName });
         this.toggleShowJoinRoom();
         this.$router.push(`/room/${this.id}`);
       } else {

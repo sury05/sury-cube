@@ -30,6 +30,7 @@ import { mapState } from 'vuex';
 
 import MakeRoomCard from '../components/cards/MakeRoomCard.vue';
 import RoomCard from '../components/cards/RoomCard.vue';
+import { sendMakeRoom } from '../socket/send-message';
 
 export default {
   components: {
@@ -46,7 +47,7 @@ export default {
       this.isShowMakeRoom = !this.isShowMakeRoom;
     },
     makeRoom(newRoom) {
-      this.$store.dispatch('addRoomAndSendMessage', newRoom);
+      sendMakeRoom(newRoom);
       this.toggleShowMakeRoom();
 
       this.$router.push(`/room/${newRoom.id}`);

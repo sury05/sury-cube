@@ -1,19 +1,19 @@
 import { Router } from 'express';
-import {createRoom, getRoom, getRooms} from '../service/room';
+import {playRooms} from '../socket/handler';
 
 const room = Router();
 
 room.get('/', (req, res) => {
-  res.status(200).json(getRooms());
+  res.status(200).json(playRooms.getRooms().map(room => room.toObject()));
 });
 
-room.get('/:id', (req, res) => {
-  res.status(200).json(getRoom(req.params.id));
+room.get('/:roomId', (req, res) => {
+  res.status(200).json(playRooms.getRoom(req.params.id).toObject());
 });
 
 room.post('/', (req, res) => {
-  const id = createRoom(req.body.room);
-  res.status(200).send(id);
+  playRooms.addRoom(req.body.room);
+  res.status(200);
 });
 
 export default room;

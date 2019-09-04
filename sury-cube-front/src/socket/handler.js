@@ -9,4 +9,9 @@ export default function init() {
   socket.on('room-updated', (data) => {
     store.commit('updateRoom', data);
   });
+
+  socket.on('game-start', (data) => {
+    debugger;
+    store.commit('updateRoom', data);
+  });
 }

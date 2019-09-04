@@ -1,7 +1,19 @@
 import socket from './index';
 
-function sendMakeRoom(room) {
-  socket.emit('make-room', room);
+function sendMakeRoom({
+  id, name, maxNumber, playerName,
+}) {
+  socket.emit('make-room', {
+    id, name, maxNumber, playerName,
+  });
+}
+
+function sendJoinRoom({ id, playerName }) {
+  socket.emit('join-room', { id, playerName });
+}
+
+function sendReadyRoom({ id, readyNumber }) {
+  socket.emit('ready-room', { id, readyNumber });
 }
 
 function sendUpdateRoom(id, room) {
@@ -14,4 +26,6 @@ function sendUpdateRoom(id, room) {
 export {
   sendMakeRoom,
   sendUpdateRoom,
+  sendJoinRoom,
+  sendReadyRoom,
 };

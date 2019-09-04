@@ -67,10 +67,7 @@ export default {
         id: shortid.generate(),
         name: this.roomName,
         maxNumber: this.maxNumberOfPerson,
-        joinedNumber: 1,
-        readyNumber: 0,
-        players: [this.playerName],
-        state: 'waiting',
+        playerName: this.playerName,
       });
     },
   },

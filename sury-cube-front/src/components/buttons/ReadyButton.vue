@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       buttonText: 'READY!',
-      state: '',
     };
   },
   methods: {
@@ -41,8 +40,7 @@ export default {
         resultNumber -= 1;
         this.buttonText = 'READY!';
       }
-      const state = this.joinedNumber <= resultNumber ? 'playing' : 'waiting';
-      this.$emit('click-ready', resultNumber, state);
+      this.$emit('click-ready', resultNumber);
     },
   },
 };

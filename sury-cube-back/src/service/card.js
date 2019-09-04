@@ -1,35 +1,29 @@
 import Card from '../vo/Card';
-import {getRoom} from './room';
+import { playRooms } from '../socket/handler';
 
 const AMOUNT_OF_EACH_COLOR_CARD = 13;
 
-export function getShuffledCard() {
-  return shuffle(makeCard());
-}
-
 export function giveCardToPlayers(id) {
-  const { players } = getRoom(id);
-
+  const { players } = playRooms.getRoom(id);
   const cards = getShuffledCard();
-
   const resultCard = {};
-
-  players.forEach(name => {
-    const givenCards = [];
-
-    for(let i=0; i<13; i++) {
-      givenCards.push(cards.pop());
-    }
-
-    resultCard[name] = givenCards;
+  const playerCard = {};
+  players.forEach(player => {
+    const givenCards = Array(AMOUNT_OF_EACH_COLOR_CARD).fill({}).map(() => cards.pop());
+    playerCard[player.getUserId()] = givenCards;
   });
 
-  resultCard.initial = cards;
-
+  resultCard.players = playerCard;
+  resultCard.left = cards;
+  resultCard.opened = [];
   return resultCard;
 }
 
-export function shuffle(a) {
+function getShuffledCard() {
+  return shuffle(makeCard());
+}
+
+function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];

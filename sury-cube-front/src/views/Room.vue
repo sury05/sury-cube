@@ -13,6 +13,7 @@
 <script>
 import ReadyButton from '../components/buttons/ReadyButton.vue';
 import RoomInformationCard from '../components/cards/RoomInformationCard.vue';
+import { sendReadyRoom } from '../socket/send-message';
 
 export default {
   components: {
@@ -31,8 +32,8 @@ export default {
     },
   },
   methods: {
-    clickReadyButton(readyNumber, state) {
-      this.$store.dispatch('readyAndSendMessage', { id: this.id, readyNumber, state });
+    clickReadyButton(readyNumber) {
+      sendReadyRoom({ id: this.id, readyNumber });
     },
   },
 };

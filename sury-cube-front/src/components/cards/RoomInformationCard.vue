@@ -19,7 +19,7 @@
     <v-expand-transition>
       <div v-show="show">
         <v-card-text>
-          <div class="grey--text subtitle-1">{{`players: ${room.players}`}}</div>
+          <div class="grey--text subtitle-1">{{`players: ${playerNames}`}}</div>
           <div class="grey--text subtitle-1">{{`state: ${room.state}`}}</div>
         </v-card-text>
       </div>
@@ -46,6 +46,14 @@ export default {
   data: () => ({
     show: false,
   }),
+  computed: {
+    playerNames() {
+      if (this.room.players) {
+        return this.room.players.map(player => player.name);
+      }
+      return [];
+    },
+  },
 };
 </script>
 
