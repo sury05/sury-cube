@@ -167,10 +167,10 @@ describe('/socket/handler', () => {
     it('should update readyNumber on targeted room and broadcast "room-updated" with provided cards when readyNumber is equal to joinedNumber', () => {
       giveCardToPlayers.mockReturnValue({
         opened : [],
-        left : [new Card('red',1),new Card('red',2)],
+        left : [new Card(1,'red',1),new Card(2,'red',2)],
         players : {
-          user1: [new Card('red',3),new Card('red',4)],
-          user2: [new Card('red',6),new Card('red',5)],
+          sury: [new Card(3,'red',3),new Card(4,'red',4)],
+          hello: [new Card(6,'red',6),new Card(5,'red',5)],
         }
       });
 
@@ -187,10 +187,10 @@ describe('/socket/handler', () => {
         readyNumber: 2,
         cards: {
           opened: [],
-          left : [new Card('red',1),new Card('red',2)],
+          left : [new Card(1, 'red',1),new Card(2, 'red',2)],
           players : {
-            user1: [new Card('red',3),new Card('red',4)],
-            user2: [new Card('red',6),new Card('red',5)],
+            sury: [new Card(3,'red',3),new Card(4,'red',4)],
+            hello: [new Card(6,'red',6),new Card(5,'red',5)],
           }
         },
         players: [new Player('user1', 'sury'), new Player('user2', 'hello')],
@@ -201,22 +201,22 @@ describe('/socket/handler', () => {
       expect(mockToIoEmit.mock.calls[0][0]).toEqual('game-start');
       expect(mockToIoEmit.mock.calls[0][1].cards).toEqual({
         players: {
-          user1: [{
-            color: 'red', number: 3,
+          sury: [{
+            id: 3, color: 'red', number: 3,
           },
           {
-            color: 'red', number: 4,
+            id: 4, color: 'red', number: 4,
           }],
         }
       });
       expect(mockToIoEmit.mock.calls[1][0]).toEqual('game-start');
       expect(mockToIoEmit.mock.calls[1][1].cards).toEqual({
         players: {
-          user2: [{
-            color: 'red', number: 6,
+          hello: [{
+            id: 6, color: 'red', number: 6,
           },
           {
-            color: 'red', number: 5,
+            id: 5, color: 'red', number: 5,
           }],
         }
       });

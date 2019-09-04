@@ -36,7 +36,6 @@ export function socketOn(io) {
     });
 
     socket.on('ready-room', data => {
-      console.log('ready-room', data);
       const { id, readyNumber } = data;
 
       const targetRoom = playRooms.getRoom(id);
@@ -54,7 +53,7 @@ export function socketOn(io) {
           const roomOfPlayer = { ...targetRoom };
           roomOfPlayer.cards = {
             players: {
-              [player.userId]: roomOfPlayer.cards.players[player.userId].map(card => card.toObject()),
+              [player.name]: roomOfPlayer.cards.players[player.name].map(card => card.toObject()),
             }
           };
           io.to(player.userId).emit('game-start', roomOfPlayer);

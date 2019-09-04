@@ -41,8 +41,8 @@ describe('makeCard', () => {
 
     const separatedCard = giveCardToPlayers('roomId');
 
-    expect(separatedCard['players']['id1'].length).toEqual(13);
-    expect(separatedCard['players']['id2'].length).toEqual(13);
+    expect(separatedCard['players']['name1'].length).toEqual(13);
+    expect(separatedCard['players']['name2'].length).toEqual(13);
     expect(separatedCard['left'].length).toEqual(80);
     expect(separatedCard['opened'].length).toEqual(0);
   });

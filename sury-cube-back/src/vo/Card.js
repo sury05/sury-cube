@@ -1,5 +1,6 @@
 export default class Card {
-  constructor(color, number) {
+  constructor(id, color, number) {
+    this.id = id;
     this.color = color;
     this.number = number;
   }
@@ -14,6 +15,7 @@ export default class Card {
 
   toObject() {
     return {
+      id: this.id,
       color: this.color,
       number: this.number,
     };

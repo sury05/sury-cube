@@ -10,7 +10,7 @@ export function giveCardToPlayers(id) {
   const playerCard = {};
   players.forEach(player => {
     const givenCards = Array(AMOUNT_OF_EACH_COLOR_CARD).fill({}).map(() => cards.pop());
-    playerCard[player.getUserId()] = givenCards;
+    playerCard[player.getName()] = givenCards;
   });
 
   resultCard.players = playerCard;
@@ -33,16 +33,16 @@ function shuffle(a) {
 
 export function makeCard() {
   return [
-    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('red').map((color, index) => new Card(color, index+1)),
-    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('red').map((color, index) => new Card(color, index+1)),
-    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('yellow').map((color, index) => new Card(color, index+1)),
-    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('yellow').map((color, index) => new Card(color, index+1)),
-    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('blue').map((color, index) => new Card(color, index+1)),
-    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('blue').map((color, index) => new Card(color, index+1)),
-    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('black').map((color, index) => new Card(color, index+1)),
-    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('black').map((color, index) => new Card(color, index+1)),
-    new Card('white', 0),
-    new Card('white', 0),
+    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('red').map((color, index) => new Card(`1-${color}-${index+1}`, color, index+1)),
+    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('red').map((color, index) => new Card(`2-${color}-${index+1}`, color, index+1)),
+    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('yellow').map((color, index) => new Card(`1-${color}-${index+1}`, color, index+1)),
+    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('yellow').map((color, index) => new Card(`2-${color}-${index+1}`, color, index+1)),
+    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('blue').map((color, index) => new Card(`1-${color}-${index+1}`, color, index+1)),
+    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('blue').map((color, index) => new Card(`2-${color}-${index+1}`, color, index+1)),
+    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('black').map((color, index) => new Card(`1-${color}-${index+1}`, color, index+1)),
+    ...Array(AMOUNT_OF_EACH_COLOR_CARD).fill('black').map((color, index) => new Card(`2-${color}-${index+1}`, color, index+1)),
+    new Card('1-white-0','white', 0),
+    new Card('2-white-0', 'white', 0),
   ];
 }
 

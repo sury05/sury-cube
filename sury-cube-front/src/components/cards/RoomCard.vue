@@ -42,6 +42,7 @@
 <script>
 import JoinRoomCard from './JoinRoomCard.vue';
 import { sendJoinRoom } from '../../socket/send-message';
+import { saveUserName } from '../../storage/localstorage';
 
 export default {
   components: { JoinRoomCard },
@@ -100,6 +101,7 @@ export default {
     joinRoom(playerName) {
       if (this.joinedNumber < this.maxNumber) {
         sendJoinRoom({ id: this.id, playerName });
+        saveUserName(playerName);
         this.toggleShowJoinRoom();
         this.$router.push(`/room/${this.id}`);
       } else {

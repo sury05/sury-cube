@@ -1,27 +1,27 @@
 <template>
   <v-app id="inspire">
-      <v-btn class="mt-5" fixed left fab large dark color="primary" @click="toggleShowMakeRoom">
-        <v-icon dark>mdi-plus</v-icon>
-      </v-btn>
-      <div class="room-card-wrapper">
-        <room-card v-for="room in rooms"
-                   :key="room.id"
-                   class="room-card-wrapper--item"
-                   :id="room.id"
-                   :name="room.name"
-                   :state="room.state"
-                   :players="room.players"
-                   :max-number="room.maxNumber"
-                   :joined-number="room.joinedNumber"
-        />
-      </div>
-      <div class="make-room-card-wrapper" v-if="isShowMakeRoom">
-        <div class="make-room-card-wrapper--overlay"></div>
-        <make-room-card class="make-room-card-wrapper--item"
-                        @click-close="toggleShowMakeRoom"
-                        @make-room="makeRoom"
-        />
-      </div>
+    <v-btn class="mt-5" fixed left fab large dark color="primary" @click="toggleShowMakeRoom">
+      <v-icon dark>mdi-plus</v-icon>
+    </v-btn>
+    <div class="room-card-wrapper">
+      <room-card v-for="room in rooms"
+                 :key="room.id"
+                 class="room-card-wrapper--item"
+                 :id="room.id"
+                 :name="room.name"
+                 :state="room.state"
+                 :players="room.players"
+                 :max-number="room.maxNumber"
+                 :joined-number="room.joinedNumber"
+      />
+    </div>
+    <div class="make-room-card-wrapper" v-if="isShowMakeRoom">
+      <div class="make-room-card-wrapper--overlay"></div>
+      <make-room-card class="make-room-card-wrapper--item"
+                      @click-close="toggleShowMakeRoom"
+                      @make-room="makeRoom"
+      />
+    </div>
   </v-app>
 </template>
 
@@ -31,6 +31,7 @@ import { mapState } from 'vuex';
 import MakeRoomCard from '../components/cards/MakeRoomCard.vue';
 import RoomCard from '../components/cards/RoomCard.vue';
 import { sendMakeRoom } from '../socket/send-message';
+import { saveUserName } from '../storage/localstorage';
 
 export default {
   components: {
@@ -48,6 +49,7 @@ export default {
     },
     makeRoom(newRoom) {
       sendMakeRoom(newRoom);
+      saveUserName(newRoom.playerName);
       this.toggleShowMakeRoom();
 
       this.$router.push(`/room/${newRoom.id}`);

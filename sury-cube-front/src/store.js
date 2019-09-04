@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     rooms: [],
+    playerName: '',
   },
   mutations: {
     setRooms(state, rooms) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
         }
         return r;
       });
+    },
+    setPlayerName(state, playerName) {
+      state.playerName = playerName;
     },
   },
 });

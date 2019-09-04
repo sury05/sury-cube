@@ -11,7 +11,6 @@ export default function init() {
   });
 
   socket.on('game-start', (data) => {
-    debugger;
     store.commit('updateRoom', data);
   });
 }

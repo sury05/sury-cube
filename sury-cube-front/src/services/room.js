@@ -7,6 +7,11 @@ async function getRooms() {
   return data;
 }
 
+async function getRoom(roomId, userName) {
+  const { data } = await axios.get(`${baseURI}/${roomId}/${userName}`);
+  return data;
+}
+
 async function addRoom(room) {
   const { id } = await axios.post(`${baseURI}`, {
     params: room,
@@ -16,6 +21,7 @@ async function addRoom(room) {
 }
 
 export {
+  getRoom,
   getRooms,
   addRoom,
 };
