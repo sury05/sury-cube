@@ -1,6 +1,6 @@
 # sury-cube
 
-
+test
 1. sury-cube-front
     ```
     vue create sury-cube-front
